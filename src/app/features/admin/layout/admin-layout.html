@@ -1,0 +1,178 @@
+<div class="flex h-screen overflow-hidden bg-gray-50 font-sans">
+  <aside
+    class="animate-slide-in bg-white border-r border-gray-100 flex flex-col h-full z-30 transition-all duration-300 ease-in-out overflow-hidden shadow-sm"
+    [class.w-[80px]]="!sidebarExpanded()"
+    [class.w-[280px]]="sidebarExpanded()"
+  >
+    <div class="flex items-center gap-3 px-6 py-6 min-h-[80px]">
+      <div class="flex items-center gap-2 text-[#001D3D] font-bold text-xl shrink-0">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="#001D3D" stroke="none" />
+        </svg>
+      </div>
+      @if (sidebarExpanded()) {
+        <span class="whitespace-nowrap font-bold text-[#001D3D] text-lg tracking-tight">Elevate Admin</span>
+      }
+    </div>
+
+    <nav class="flex-1 py-6">
+      <ul class="space-y-2 px-4">
+        <li>
+          <a
+            routerLink="/admin"
+            routerLinkActive="bg-blue-600/25 text-blue-600 rounded-none"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="flex items-center gap-4 px-4 py-3 rounded-none text-sm font-semibold text-gray-500 hover:bg-blue-100 hover:text-blue-600 transition-all duration-200"
+            [title]="sidebarExpanded() ? '' : 'Dashboard'"
+          >
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+            </svg>
+            @if (sidebarExpanded()) {
+              <span class="whitespace-nowrap">Dashboard</span>
+            }
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/admin/diplomas"
+            routerLinkActive="bg-blue-600/25 text-blue-600 rounded-none"
+            class="flex items-center gap-4 px-4 py-3 rounded-none text-sm font-semibold text-gray-500 hover:bg-blue-100 hover:text-blue-600 transition-all duration-200"
+            [title]="sidebarExpanded() ? '' : 'Diplomas'"
+          >
+            <svg class="w-5 h-5 shrink-0" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M22 9.99987V15.9999M6 12.4999V15.9999C6 16.7955 6.63214 17.5586 7.75736 18.1212C8.88257 18.6838 10.4087 18.9999 12 18.9999C13.5913 18.9999 15.1174 18.6838 16.2426 18.1212C17.3679 17.5586 18 16.7955 18 15.9999V12.4999M21.42 10.9219C21.599 10.8429 21.7509 10.7131 21.8569 10.5487C21.9629 10.3842 22.0183 10.1923 22.0163 9.99661C22.0143 9.80095 21.9549 9.61019 21.8455 9.44795C21.7362 9.28571 21.5816 9.15913 21.401 9.08387L12.83 5.17987C12.5694 5.06102 12.2864 4.99951 12 4.99951C11.7136 4.99951 11.4306 5.06102 11.17 5.17987L2.6 9.07987C2.42196 9.15784 2.27051 9.286 2.16416 9.44868C2.05781 9.61136 2.00117 9.80151 2.00117 9.99587C2.00117 10.1902 2.05781 10.3804 2.16416 10.5431C2.27051 10.7057 2.42196 10.8339 2.6 10.9119L11.17 14.8199C11.4306 14.9387 11.7136 15.0002 12 15.0002C12.2864 15.0002 12.5694 14.9387 12.83 14.8199L21.42 10.9219Z" stroke="#6B7280" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            @if (sidebarExpanded()) {
+              <span class="whitespace-nowrap">Diplomas</span>
+            }
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/admin/exams"
+            routerLinkActive="bg-blue-600/25 text-blue-600 rounded-none"
+            class="flex items-center gap-4 px-4 py-3 rounded-none text-sm font-semibold text-gray-500 hover:bg-blue-100 hover:text-blue-600 transition-all duration-200"
+            [title]="sidebarExpanded() ? '' : 'Manage Exams'"
+          >
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+            </svg>
+            @if (sidebarExpanded()) {
+              <span class="whitespace-nowrap">Manage Exams</span>
+            }
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/admin/users"
+            routerLinkActive="bg-blue-600/25 text-blue-600 rounded-none"
+            class="flex items-center gap-4 px-4 py-3 rounded-none text-sm font-semibold text-gray-500 hover:bg-blue-100 hover:text-blue-600 transition-all duration-200"
+            [title]="sidebarExpanded() ? '' : 'Manage Users'"
+          >
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            @if (sidebarExpanded()) {
+              <span class="whitespace-nowrap">Manage Users</span>
+            }
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/admin/audit"
+            routerLinkActive="bg-blue-600/25 text-blue-600 rounded-none"
+            class="flex items-center gap-4 px-4 py-3 rounded-none text-sm font-semibold text-gray-500 hover:bg-blue-100 hover:text-blue-600 transition-all duration-200"
+            [title]="sidebarExpanded() ? '' : 'Audit Logs'"
+          >
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            @if (sidebarExpanded()) {
+              <span class="whitespace-nowrap">Audit Logs</span>
+            }
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="p-6 mt-auto space-y-4">
+      @if (sidebarExpanded()) {
+        <div class="relative flex items-center justify-between gap-3 px-4 py-3 rounded-none bg-gray-50">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-gradient-to-tr from-[#001D3D] to-[#345171] flex items-center justify-center text-white text-sm font-bold shrink-0">
+              {{ userInitial() }}
+            </div>
+            <div class="overflow-hidden">
+              <p class="text-sm font-bold text-[#001D3D] truncate">{{ userName() }}</p>
+              <p class="text-xs text-gray-500 font-medium">Administrator</p>
+            </div>
+          </div>
+          <button (click)="toggleUserMenu()" class="p-1 hover:bg-gray-200 rounded-none">
+            <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+              <circle cx="12" cy="5" r="1.5" /><circle cx="12" cy="12" r="1.5" /><circle cx="12" cy="19" r="1.5" />
+            </svg>
+          </button>
+          @if (userMenuOpen()) {
+            <div class="absolute bottom-full left-0 right-0 mb-1 bg-white border border-gray-200 rounded-none shadow-lg z-50">
+              <button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100">Profile</button>
+              <button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100">Settings</button>
+              <button (click)="logout()" class="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50">Log Out</button>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="flex flex-col items-center gap-2">
+          <button (click)="toggleUserMenu()" class="relative p-1 hover:bg-gray-100 rounded-none">
+            <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+              <circle cx="12" cy="5" r="1.5" /><circle cx="12" cy="12" r="1.5" /><circle cx="12" cy="19" r="1.5" />
+            </svg>
+          </button>
+          @if (userMenuOpen()) {
+            <div class="absolute bottom-full left-0 mb-1 bg-white border border-gray-200 rounded-none shadow-lg z-50">
+              <button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100">Profile</button>
+              <button (click)="logout()" class="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50">Log Out</button>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </aside>
+
+  <div class="flex-1 flex flex-col h-screen overflow-hidden animate-fade-in">
+    <header class="bg-white px-8 py-4 flex items-center justify-between min-h-[80px] shrink-0 shadow-sm z-20">
+      <div class="flex items-center gap-6">
+        <button (click)="toggleSidebar()" class="p-2 -ml-2 rounded-xl hover:bg-gray-100 transition-colors text-gray-500">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <div>
+          <h1 class="text-xl font-bold text-[#001D3D]">Admin Dashboard</h1>
+        </div>
+        <div class="hidden md:flex items-center relative">
+          <svg class="w-5 h-5 text-gray-400 absolute left-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <input
+            type="text"
+            placeholder="Search admin..."
+            class="pl-10 pr-4 py-2 bg-gray-50 border-none rounded-full w-64 text-sm focus:outline-none focus:ring-2 focus:ring-[#001D3D]/20 transition-all"
+          />
+        </div>
+      </div>
+      <div class="flex items-center gap-5">
+        <button class="relative p-2 text-gray-500 hover:text-[#001D3D] transition-colors rounded-full hover:bg-gray-100">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+          </svg>
+          <span class="absolute top-1 right-2 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="flex-1 overflow-y-auto p-8 relative">
+      <router-outlet />
+    </main>
+  </div>
+</div>

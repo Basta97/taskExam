@@ -1,0 +1,131 @@
+<div class="account-page">
+  <p class="crumb">Account</p>
+
+  <header class="page-header">
+    <a class="back-btn" routerLink="/dashboard/diplomas" aria-label="Back">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M15 6L9 12L15 18" />
+      </svg>
+    </a>
+    <div class="title-strip">
+      <h2>
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M12 13C14.76 13 17 10.76 17 8C17 5.24 14.76 3 12 3C9.24 3 7 5.24 7 8C7 10.76 9.24 13 12 13ZM12 13C14.12 13 16.16 13.84 17.66 15.34C19.16 16.84 20 18.88 20 21M12 13C9.88 13 7.84 13.84 6.34 15.34C4.84 16.84 4 18.88 4 21" />
+        </svg>
+        Account Settings
+      </h2>
+    </div>
+  </header>
+
+  <div class="settings-grid">
+    <aside class="side-tabs">
+      @for (tab of tabs; track tab.key) {
+        <button
+          type="button"
+          (click)="setTab(tab.key)"
+          class="tab-btn"
+          [class.active]="activeTab() === tab.key"
+        >
+          @if (tab.key === 'profile') {
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 13C14.76 13 17 10.76 17 8C17 5.24 14.76 3 12 3C9.24 3 7 5.24 7 8C7 10.76 9.24 13 12 13ZM12 13C14.12 13 16.16 13.84 17.66 15.34C19.16 16.84 20 18.88 20 21M12 13C9.88 13 7.84 13.84 6.34 15.34C4.84 16.84 4 18.88 4 21" /></svg>
+          } @else {
+            <svg viewBox="0 0 24 24" fill="none"><path d="M19 11H5V8A7 7 0 0119 8V11ZM4 11H20V21H4V11Z" /></svg>
+          }
+          {{ tab.label }}
+        </button>
+      }
+
+      <button type="button" class="logout-btn" (click)="logout()">
+        ↩ Logout
+      </button>
+    </aside>
+
+    <section class="settings-content">
+      @if (activeTab() === 'profile') {
+        <form [formGroup]="profileForm" (ngSubmit)="onProfileSubmit()" class="profile-form">
+          <div class="row two-col">
+            <label>
+              <span>First name</span>
+              <input formControlName="firstName" type="text" />
+            </label>
+            <label>
+              <span>Last name</span>
+              <input formControlName="lastName" type="text" />
+            </label>
+          </div>
+
+          <label class="row">
+            <span>Username</span>
+            <input formControlName="username" type="text" />
+          </label>
+
+          <label class="row">
+            <span>Email</span>
+            <input formControlName="email" type="email" />
+          </label>
+
+          <label class="row">
+            <span>Phone</span>
+            <div class="phone-wrap">
+              <span>EG(+20)</span>
+              <input formControlName="phone" type="tel" placeholder="1012345678" />
+            </div>
+          </label>
+
+          <div class="actions">
+            <button type="button" class="delete-btn" (click)="setTab('delete-account')">Delete My Account</button>
+            <button type="submit" class="save-btn" [disabled]="loading">{{ loading ? 'Saving...' : 'Save Changes' }}</button>
+          </div>
+        </form>
+      }
+
+      @if (activeTab() === 'change-password') {
+        <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()" class="profile-form">
+          <label class="row">
+            <span>Current Password</span>
+            <input formControlName="currentPassword" type="password" placeholder="********" />
+          </label>
+          <label class="row">
+            <span>New Password</span>
+            <input formControlName="newPassword" type="password" placeholder="********" />
+          </label>
+          <label class="row">
+            <span>Confirm New Password</span>
+            <input formControlName="confirmPassword" type="password" placeholder="********" />
+          </label>
+
+          @if (passwordForm.hasError('passwordMismatch') && passwordForm.get('confirmPassword')?.touched) {
+            <p class="error-text">Passwords do not match.</p>
+          }
+
+          <div class="actions one-btn">
+            <button type="submit" class="save-btn" [disabled]="loading">{{ loading ? 'Updating...' : 'Update Password' }}</button>
+          </div>
+        </form>
+      }
+
+      @if (activeTab() === 'delete-account') {
+        <form [formGroup]="deleteForm" (ngSubmit)="onDeleteAccount()" class="profile-form danger-form">
+          <h3>Delete Account</h3>
+          <p>This action is permanent and cannot be undone.</p>
+          <label class="row">
+            <span>Confirm Password</span>
+            <input formControlName="password" type="password" placeholder="Enter password" />
+          </label>
+
+          <div class="actions">
+            <button type="button" class="delete-btn" (click)="setTab('profile')">Cancel</button>
+            <button type="submit" class="confirm-delete" [disabled]="loading">{{ loading ? 'Deleting...' : 'Yes, Delete' }}</button>
+          </div>
+        </form>
+      }
+    </section>
+  </div>
+
+  <app-toast
+    [message]="toastMessage()"
+    [type]="toastType()"
+    [visible]="toastVisible()"
+    (dismiss)="toastVisible.set(false)"
+  />
+</div>

@@ -1,0 +1,292 @@
+.results-page {
+  font-family: "Geist Mono", monospace;
+  color: #2d3442;
+  background: #ffffff;
+  padding: 2px;
+}
+
+.crumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #8a93a5;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.crumbs a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.crumbs strong {
+  color: #155dfc;
+  font-weight: 600;
+}
+
+.title-strip {
+  background: #155dfc;
+  border: 1px solid #2568f0;
+  margin-bottom: 16px;
+}
+
+.title-strip h2 {
+  margin: 0;
+  min-height: 62px;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.title-strip svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.results-wrap {
+  border: 1px solid #d8dee7;
+  background: #ffffff;
+  padding: 14px;
+}
+
+.results-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #667183;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.results-head strong {
+  color: #155dfc;
+}
+
+.progress-track {
+  width: 100%;
+  height: 10px;
+  margin-bottom: 24px;
+  background: #d9e0ea;
+}
+
+.progress-track span {
+  display: block;
+  height: 100%;
+  background: #155dfc;
+}
+
+.results-wrap h3 {
+  margin: 0 0 12px;
+  color: #155dfc;
+  font-size: 28px;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 16px;
+}
+
+.left-stat {
+  border: 1px solid #b9d2f8;
+  background: #d8e5f8;
+  padding: 14px;
+}
+
+.donut {
+  --correct: 50;
+  width: 180px;
+  height: 180px;
+  margin: 8px auto 24px;
+  border-radius: 50%;
+  background: conic-gradient(#09ba85 calc(var(--correct) * 1%), #f04141 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.donut div {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: #d8e5f8;
+}
+
+.left-stat ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.left-stat li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.correct-dot,
+.wrong-dot {
+  width: 18px;
+  height: 18px;
+}
+
+.correct-dot {
+  background: #09ba85;
+}
+
+.wrong-dot {
+  background: #f04141;
+}
+
+.review-box {
+  border: 1px dashed #b8cff3;
+  background: #edf0f3;
+  padding: 14px;
+  max-height: 540px;
+  overflow: auto;
+}
+
+.review-item {
+  margin-bottom: 14px;
+}
+
+.review-item:last-child {
+  margin-bottom: 0;
+}
+
+.review-item h4 {
+  margin: 0 0 8px;
+  color: #155dfc;
+  font-size: 18px;
+}
+
+.answer {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  padding: 0 14px;
+  margin-bottom: 8px;
+}
+
+.answer .dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+}
+
+.answer.red {
+  background: #f8eaea;
+  color: #9f3f3f;
+}
+
+.answer.green {
+  background: #ddf2e8;
+  color: #2f7d64;
+  margin-bottom: 0;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.restart,
+.explore {
+  min-height: 44px;
+  border: none;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.restart {
+  background: #d3d8df;
+  color: #2d3442;
+}
+
+.explore {
+  background: #155dfc;
+  color: #fff;
+}
+
+.state-box {
+  min-height: 240px;
+  border: 1px dashed #b6c7df;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #687081;
+  font-size: 15px;
+}
+
+.state-box.error {
+  flex-direction: column;
+  gap: 12px;
+  color: #e03b3b;
+}
+
+.state-box.error button {
+  width: 100px;
+  height: 34px;
+  background: #155dfc;
+  color: #fff;
+  font-size: 14px;
+}
+
+@media (max-width: 1080px) {
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .left-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .review-box {
+    max-height: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .title-strip h2 {
+    min-height: 54px;
+    font-size: 17px;
+  }
+
+  .results-wrap h3 {
+    font-size: 23px;
+  }
+
+  .actions {
+    grid-template-columns: 1fr;
+  }
+
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .left-stat {
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,34 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6 w-full">
+  <div class="space-y-2">
+    <label class="block text-sm font-semibold text-[#001D3D] font-geist-mono" for="email">Email</label>
+    <input
+      id="email"
+      formControlName="email"
+      type="email"
+      placeholder="user@example.com"
+      class="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors font-geist-mono placeholder:text-gray-300"
+      [ngClass]="{'border-red-500 text-red-500': emailCtrl?.invalid && emailCtrl?.touched, 'border-gray-200': !emailCtrl?.invalid || !emailCtrl?.touched}"
+    />
+    @if (emailCtrl?.invalid && emailCtrl?.touched) {
+      <p class="text-xs text-red-500 mt-1 font-geist-mono">
+        @if (emailCtrl?.errors?.['required']) { Email is required }
+        @if (emailCtrl?.errors?.['email']) { Invalid email format }
+      </p>
+    }
+  </div>
+
+  <div>
+    <button
+      type="submit"
+      class="w-full bg-[#155DFC] text-white font-bold py-4 rounded-md hover:bg-blue-700 transition-colors font-geist-mono focus:ring-4 focus:ring-blue-200"
+    >
+      Next
+    </button>
+  </div>
+
+  <div class="text-center">
+    <p class="text-sm text-gray-500 font-medium font-geist-mono">
+      Already have an account? <a routerLink="/auth/login" class="text-blue-600 hover:underline">Login</a>
+    </p>
+  </div>
+</form>

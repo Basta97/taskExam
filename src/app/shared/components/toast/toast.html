@@ -1,0 +1,30 @@
+@if (visible && message) {
+  <div
+    class="fixed top-6 right-6 z-[100] flex items-center gap-3 px-5 py-4 rounded-lg shadow-lg transition-all duration-300 animate-slide-in-right font-geist-mono text-sm max-w-md"
+    [ngClass]="{
+      'bg-green-50 border border-green-300 text-green-700': type === 'success',
+      'bg-red-50 border border-red-300 text-red-700': type === 'error',
+      'bg-blue-50 border border-blue-300 text-blue-700': type === 'info'
+    }"
+  >
+    @if (type === 'success') {
+      <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+      </svg>
+    } @else if (type === 'error') {
+      <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    } @else {
+      <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    }
+    <span class="flex-1">{{ message }}</span>
+    <button (click)="onClose()" class="shrink-0 hover:opacity-70 transition-opacity">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+}

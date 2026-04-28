@@ -1,0 +1,88 @@
+<div class="play-page">
+  @if (loading()) {
+    <div class="state-box">Loading exam...</div>
+  } @else if (error()) {
+    <div class="state-box error">
+      <p>{{ error() }}</p>
+      <button (click)="loadExam()">Retry</button>
+    </div>
+  } @else if (submitting()) {
+    <div class="state-box">Submitting your answers...</div>
+  } @else if (!currentQuestion()) {
+    <div class="state-box error">No questions available for this exam.</div>
+  } @else {
+    <nav class="crumbs">
+      <a routerLink="/dashboard/diplomas">Diplomas</a>
+      <span>/</span>
+      <span>{{ diplomaTitle() }}</span>
+      <span>/</span>
+      <strong>{{ examTitle() }}</strong>
+    </nav>
+
+    <header class="page-header">
+      <button class="back-btn" (click)="goBack()" aria-label="Back">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M15 6L9 12L15 18" />
+        </svg>
+      </button>
+      <div class="title-strip">
+        <h2>
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 17H12.01M9.09 9C9.33 7.61 10.52 6.6 12 6.6C13.66 6.6 15 7.94 15 9.6C15 11.59 12 12.6 12 12.6M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2C17.52 2 22 6.48 22 12Z" />
+          </svg>
+          {{ examTitle() }} Questions
+        </h2>
+      </div>
+    </header>
+
+    <section class="question-wrap">
+      <div class="quiz-top">
+        <div class="quiz-head">
+          <div>
+            <p class="quiz-name">{{ diplomaTitle() }} - {{ examTitle() }} Quiz</p>
+            <div class="progress-track">
+              <span [style.width.%]="progressPercentage()"></span>
+            </div>
+          </div>
+          <div class="top-right">
+            <p>Question <strong>{{ currentIndex() + 1 }}</strong> of {{ questions().length }}</p>
+            <div class="timer-ring" [style.--percent]="timerProgress()">
+              <span>{{ formatTime(remainingTime()) }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="question-title">{{ currentQuestion()!.text }}</h3>
+
+      <div class="answers">
+        @for (answer of currentQuestion()!.answers; track answer.id) {
+          <button
+            type="button"
+            (click)="selectAnswer(currentQuestion()!.id, answer.id)"
+            class="answer-row"
+            [class.selected]="selectedAnswers()[currentQuestion()!.id] === answer.id"
+          >
+            <span class="radio"></span>
+            <span>{{ answer.text }}</span>
+          </button>
+        }
+      </div>
+
+      <div class="actions">
+        <button (click)="previousQuestion()" [disabled]="currentIndex() === 0" class="prev-btn">
+          ‹ Previous
+        </button>
+        @if (currentIndex() < questions().length - 1) {
+          <button (click)="nextQuestion()" class="next-btn">
+            Next ›
+          </button>
+        } @else {
+          <button (click)="submitExam()" class="next-btn" [disabled]="answeredCount() !== questions().length">
+            Submit
+          </button>
+        }
+      </div>
+    </section>
+  }
+</div>

@@ -1,0 +1,57 @@
+<section class="w-full mx-auto space-y-8 flex flex-col items-center">
+  <div class="text-center w-full max-w-[50vh] pt-4">
+
+    @if (showErrorBox) {
+      <div class="relative flex items-center justify-center p-4 mb-4 bg-red-50 border border-red-300 rounded-lg">
+        <span class="text-red-500 font-medium font-geist-mono">{{ errorMessage }}</span>
+        <button
+          type="button"
+          (click)="closeErrorBox()"
+          class="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 bg-white border border-red-300 rounded-full flex items-center justify-center text-red-500 hover:bg-gray-50 transition-colors"
+        >
+          &times;
+        </button>
+      </div>
+    }
+
+    @if (step > 1) {
+      <div class="flex items-center justify-center w-full mb-8 relative">
+        <span class="absolute left-[30px] right-[70%] top-[49%] h-[2px] bg-blue-600 rounded"></span>
+        <span class="absolute left-[30%] right-[30%] top-[49%] h-[2px] bg-blue-600 rounded"></span>
+        <span class="absolute left-[70%] right-[30px] top-[49%] h-[2px]" [ngClass]="step > 3 ? 'bg-blue-600' : 'border-t-2 border-dashed border-blue-400'"></span>
+
+        <div class="flex items-center justify-between w-full relative z-10 px-6">
+          <div class="w-6 h-6 flex items-center justify-center">
+            <div class="w-3 h-3 bg-blue-600 rotate-45"></div>
+          </div>
+          <div class="w-8 h-8 flex items-center justify-center" [ngClass]="step === 2 ? 'bg-blue-100 rotate-45' : ''">
+            <div class="w-4 h-4 bg-blue-600 transition-transform" [ngClass]="step === 2 ? '' : 'rotate-45'"></div>
+          </div>
+          <div class="w-8 h-8 flex items-center justify-center" [ngClass]="step === 3 ? 'bg-blue-100 rotate-45' : ''">
+            <div [ngClass]="step > 2 ? 'w-4 h-4 bg-blue-600' : 'w-4 h-4 border-2 border-blue-600 rotate-45'"></div>
+          </div>
+          <div class="w-8 h-8 flex items-center justify-center" [ngClass]="step === 4 ? 'bg-blue-100 rotate-45' : ''">
+            <div [ngClass]="step > 3 ? 'w-4 h-4 bg-blue-600' : 'w-4 h-4 border-2 border-blue-600 rotate-45'"></div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <h2 class="text-[32px] font-extrabold text-[#001D3D] text-left mb-6">Create Account</h2>
+
+    <div class="flex justify-start w-full" [ngClass]="{'opacity-50 pointer-events-none': isSubmitting}">
+      @if (isStep(1)) {
+        <app-register-email (submitEmail)="onEmailSubmit($event)"></app-register-email>
+      }
+      @if (isStep(2)) {
+        <app-verify-email [email]="userEmail" (submitOtp)="onOtpSubmit($event)" (editEmail)="onEditEmail()"></app-verify-email>
+      }
+      @if (isStep(3)) {
+        <app-register-info (submitInfo)="onInfoSubmit($event)"></app-register-info>
+      }
+      @if (isStep(4)) {
+        <app-register-pass (submitPassword)="onPasswordSubmit($event)"></app-register-pass>
+      }
+    </div>
+  </div>
+</section>

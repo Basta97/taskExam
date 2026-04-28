@@ -1,0 +1,96 @@
+<div class="dashboard-shell">
+  <aside class="side-menu" [class.collapsed]="!sidebarExpanded()">
+    <div class="brand-block">
+      <h1 class="brand-logo">ELEVATE</h1>
+      <p class="brand-sub">
+        <span class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 30" fill="none">
+            <path d="M12.75 13.5L9.75 17.25L12.75 21" fill="#155DFC" />
+            <path d="M18.75 13.5L21.75 17.25L18.75 21" fill="#155DFC" />
+            <path d="M27.75 27.75C28.55 27.75 29.31 27.43 29.87 26.87C30.43 26.31 30.75 25.55 30.75 24.75V9.75C30.75 8.95 30.43 8.19 29.87 7.63C29.31 7.07 28.55 6.75 27.75 6.75H15.9C15.4 6.75 14.9 6.63 14.46 6.4C14.02 6.16 13.64 5.82 13.36 5.4L12.15 3.6C11.88 3.19 11.51 2.84 11.07 2.61C10.63 2.37 10.14 2.25 9.65 2.25H3.75C2.95 2.25 2.19 2.57 1.63 3.13C1.07 3.69 0.75 4.45 0.75 5.25V24.75C0.75 25.55 1.07 26.31 1.63 26.87C2.19 27.43 2.95 27.75 3.75 27.75H27.75Z" fill="#155DFC" />
+            <path d="M12.75 13.5L9.75 17.25L12.75 21M18.75 13.5L21.75 17.25L18.75 21M27.75 27.75C28.55 27.75 29.31 27.43 29.87 26.87C30.43 26.31 30.75 25.55 30.75 24.75V9.75C30.75 8.95 30.43 8.19 29.87 7.63C29.31 7.07 28.55 6.75 27.75 6.75H15.9C15.4 6.75 14.9 6.63 14.46 6.4C14.02 6.16 13.64 5.82 13.36 5.4L12.15 3.6C11.88 3.19 11.51 2.84 11.07 2.61C10.63 2.37 10.14 2.25 9.65 2.25H3.75C2.95 2.25 2.19 2.57 1.63 3.13C1.07 3.69 0.75 4.45 0.75 5.25V24.75C0.75 25.55 1.07 26.31 1.63 26.87C2.19 27.43 2.95 27.75 3.75 27.75H27.75Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+        Exam App
+      </p>
+    </div>
+
+    <nav class="menu-links">
+      <a
+        routerLink="/dashboard/diplomas"
+        routerLinkActive="active-link"
+        class="menu-link"
+        [class.icon-only]="!sidebarExpanded()"
+      >
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none">
+          <path d="M22 10V16M6 12.5V16C6 16.8 6.63 17.56 7.76 18.12C8.88 18.69 10.41 19 12 19C13.59 19 15.12 18.69 16.24 18.12C17.37 17.56 18 16.8 18 16V12.5M21.42 10.92C21.6 10.84 21.75 10.71 21.86 10.55C21.96 10.38 22.02 10.19 22.02 10C22.02 9.8 21.96 9.61 21.85 9.45C21.74 9.29 21.58 9.16 21.4 9.08L12.83 5.18C12.57 5.06 12.29 5 12 5C11.71 5 11.43 5.06 11.17 5.18L2.6 9.08C2.42 9.16 2.27 9.29 2.16 9.45C2.06 9.61 2 9.8 2 10C2 10.19 2.06 10.38 2.16 10.54C2.27 10.71 2.42 10.84 2.6 10.92L11.17 14.82C11.43 14.94 11.71 15 12 15C12.29 15 12.57 14.94 12.83 14.82L21.42 10.92Z" />
+        </svg>
+        @if (sidebarExpanded()) {
+          <span>Diplomas</span>
+        }
+      </a>
+
+      <a
+        routerLink="/dashboard/account-settings"
+        routerLinkActive="active-link"
+        class="menu-link"
+        [class.icon-only]="!sidebarExpanded()"
+      >
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none">
+          <path d="M12 13C14.76 13 17 10.76 17 8C17 5.24 14.76 3 12 3C9.24 3 7 5.24 7 8C7 10.76 9.24 13 12 13ZM12 13C14.12 13 16.16 13.84 17.66 15.34C19.16 16.84 20 18.88 20 21M12 13C9.88 13 7.84 13.84 6.34 15.34C4.84 16.84 4 18.88 4 21" />
+        </svg>
+        @if (sidebarExpanded()) {
+          <span>Account Settings</span>
+        }
+      </a>
+
+      @if (authService.isAdmin()) {
+        <a routerLink="/admin" class="menu-link admin-link" [class.icon-only]="!sidebarExpanded()">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none">
+            <path d="M9 12L11 14L15 10M20.62 7.98C20.88 9 21 10.02 21 11C21 16.59 17.18 21.29 12 22.62C6.82 21.29 3 16.59 3 11C3 10.02 3.12 9 3.38 7.98C6.2 7.79 8.88 6.98 12 4.94C15.12 6.98 17.8 7.79 20.62 7.98Z" />
+          </svg>
+          @if (sidebarExpanded()) {
+            <span>Admin Panel</span>
+          }
+        </a>
+      }
+    </nav>
+
+    <div class="user-section">
+      <div class="user-card">
+        @if (authService.currentUser()?.avatar) {
+          <img [src]="authService.currentUser()!.avatar" alt="Avatar" class="user-avatar" />
+        } @else {
+          <div class="user-avatar user-avatar-fallback">{{ userInitial() }}</div>
+        }
+        @if (sidebarExpanded()) {
+          <div class="user-meta">
+            <p class="user-name">{{ userName().split(' ')[0] }}</p>
+            <p class="user-email">{{ userEmail() }}</p>
+          </div>
+        }
+        <button class="user-dots" (click)="toggleUserMenu()" type="button" aria-label="User menu">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="12" cy="5" r="1.5" />
+            <circle cx="12" cy="12" r="1.5" />
+            <circle cx="12" cy="19" r="1.5" />
+          </svg>
+        </button>
+
+        @if (userMenuOpen()) {
+          <div class="user-dropdown">
+            <button type="button" (click)="goToAccount()">Account</button>
+            <button type="button" (click)="goToDashboard()">Dashboard</button>
+            <button type="button" class="logout-item" (click)="logout()">Logout</button>
+          </div>
+        }
+      </div>
+    </div>
+  </aside>
+
+  <section class="dashboard-main">
+    <main class="dashboard-content">
+      <router-outlet />
+    </main>
+  </section>
+</div>

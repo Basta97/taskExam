@@ -1,0 +1,23 @@
+.auth-side-panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-side-panel::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  right: -50px;
+  bottom: -50px;
+  background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 50%, #e0e7ff 100%);
+  background-size: cover;
+  background-position: center;
+  filter: blur(80px);
+  z-index: 0;
+}
+
+.auth-side-panel > * {
+  position: relative;
+  z-index: 1;
+}

@@ -1,0 +1,55 @@
+<div class="space-y-6">
+  <h2 class="text-2xl font-bold text-[#001D3D] font-geist-mono">Audit Logs</h2>
+
+  @if (loading && logs().length === 0) {
+    <div class="text-center py-12 text-gray-400 font-geist-mono">Loading audit logs...</div>
+  } @else if (logs().length === 0) {
+    <div class="text-center py-12 text-gray-400 font-geist-mono">No audit logs found.</div>
+  } @else {
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <table class="w-full">
+        <thead class="bg-gray-50 border-b border-gray-100">
+          <tr>
+            <th class="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase font-geist-mono">Action</th>
+            <th class="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase font-geist-mono">Entity</th>
+            <th class="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase font-geist-mono">User</th>
+            <th class="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase font-geist-mono">Details</th>
+            <th class="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase font-geist-mono">Date</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-50">
+          @for (log of logs(); track log.id) {
+            <tr class="hover:bg-gray-50/50 transition-colors">
+              <td class="px-6 py-4">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold font-geist-mono"
+                  [ngClass]="{
+                    'bg-blue-100 text-blue-700': log.action === 'CREATE',
+                    'bg-amber-100 text-amber-700': log.action === 'UPDATE',
+                    'bg-red-100 text-red-700': log.action === 'DELETE'
+                  }">
+                  {{ log.action }}
+                </span>
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-600 font-geist-mono">{{ log.entity }}<span class="text-gray-400 ml-1">#{{ log.entityId.slice(0, 8) }}</span></td>
+              <td class="px-6 py-4 text-sm text-gray-600 font-geist-mono">{{ log.userName }}</td>
+              <td class="px-6 py-4 text-sm text-gray-500 font-geist-mono max-w-xs truncate">{{ log.details }}</td>
+              <td class="px-6 py-4 text-sm text-gray-500 font-geist-mono">{{ log.createdAt | date:'medium' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    @if (totalPages > 1) {
+      <div class="flex justify-center gap-2">
+        @for (p of [].constructor(totalPages); track $index) {
+          <button (click)="loadLogs($index + 1)"
+            class="w-9 h-9 rounded-md text-sm font-geist-mono font-semibold"
+            [ngClass]="currentPage === $index + 1 ? 'bg-[#155DFC] text-white' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'">
+            {{ $index + 1 }}
+          </button>
+        }
+      </div>
+    }
+  }
+</div>

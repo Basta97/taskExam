@@ -1,0 +1,70 @@
+<div class="results-page">
+  @if (loading()) {
+    <div class="state-box">Loading results...</div>
+  } @else if (error()) {
+    <div class="state-box error">
+      <p>{{ error() }}</p>
+      <button (click)="loadResult()">Retry</button>
+    </div>
+  } @else {
+    <nav class="crumbs">
+      <a routerLink="/dashboard/diplomas">Diplomas</a>
+      <span>/</span>
+      <span>{{ diplomaTitle() }}</span>
+      <span>/</span>
+      <strong>{{ submission().examTitle }}</strong>
+    </nav>
+
+    <header class="title-strip">
+      <h2>
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M12 17H12.01M9.09 9C9.33 7.61 10.52 6.6 12 6.6C13.66 6.6 15 7.94 15 9.6C15 11.59 12 12.6 12 12.6M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2C17.52 2 22 6.48 22 12Z" />
+        </svg>
+        {{ submission().examTitle }} Questions
+      </h2>
+    </header>
+
+    <section class="results-wrap">
+      <div class="results-head">
+        <p>{{ diplomaTitle() }} - {{ submission().examTitle }}</p>
+        <span>Question <strong>{{ submission().totalQuestions }}</strong> of {{ submission().totalQuestions }}</span>
+      </div>
+      <div class="progress-track"><span style="width: 100%"></span></div>
+
+      <h3>Results:</h3>
+
+      <div class="results-grid">
+        <div class="left-stat">
+          <div class="donut" [style.--correct]="submission().score">
+            <div></div>
+          </div>
+          <ul>
+            <li><span class="correct-dot"></span> Correct: {{ submission().correctAnswers }}</li>
+            <li><span class="wrong-dot"></span> Incorrect: {{ submission().wrongAnswers }}</li>
+          </ul>
+        </div>
+
+        <div class="review-box">
+          @for (item of analytics(); track item.questionId) {
+            <div class="review-item">
+              <h4>{{ item.questionText }}</h4>
+              <div class="answer red">
+                <span class="dot"></span>
+                {{ item.selectedAnswer.text || 'No answer selected' }}
+              </div>
+              <div class="answer green">
+                <span class="dot"></span>
+                {{ item.correctAnswer.text || 'N/A' }}
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="restart" (click)="restartExam()">↻ Restart</button>
+        <a routerLink="/dashboard/diplomas" class="explore">Explore</a>
+      </div>
+    </section>
+  }
+</div>

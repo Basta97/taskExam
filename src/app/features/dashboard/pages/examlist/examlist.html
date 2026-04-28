@@ -1,0 +1,74 @@
+<div class="space-y-6">
+  <div class="bg-[#155DFC] rounded-xl p-6 text-white">
+    <h2 class="text-2xl font-bold">All Exams</h2>
+    <p class="mt-1 text-blue-100">Browse all available exams</p>
+  </div>
+
+  @if (loading()) {
+    <div class="flex items-center justify-center py-20">
+      <div class="flex flex-col items-center gap-3">
+        <svg class="animate-spin h-10 w-10 text-[#155DFC]" viewBox="0 0 24 24" fill="none">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <p class="text-gray-500 text-sm">Loading exams...</p>
+      </div>
+    </div>
+  } @else if (error()) {
+    <div class="text-center py-20">
+      <p class="text-red-500">{{ error() }}</p>
+      <button (click)="loadExams()" class="mt-4 px-4 py-2 bg-[#155DFC] text-white rounded-md hover:bg-blue-700 transition-colors">Retry</button>
+    </div>
+  } @else {
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+      @for (exam of exams(); track exam.id) {
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
+          <div class="h-36 bg-gray-100 overflow-hidden">
+            <img [src]="exam.image" [alt]="exam.title" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23E5E7EB%22 width=%22100%22 height=%22100%22/><text y=%2250%22 x=%2225%22 font-size=%2214%22 fill=%22%239CA3AF%22>Exam</text></svg>'">
+          </div>
+          <div class="p-5">
+            <h3 class="font-bold text-[#001D3D] text-base mb-1 line-clamp-1">{{ exam.title }}</h3>
+            <p class="text-xs text-[#155DFC] font-medium mb-2">{{ exam.diploma.title }}</p>
+            <p class="text-sm text-gray-500 mb-3 line-clamp-2">{{ exam.description }}</p>
+            <div class="flex items-center justify-between text-xs text-gray-400 mb-4">
+              <span class="flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                {{ exam.duration }} min
+              </span>
+              <span class="flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                {{ exam.questionsCount }} Qs
+              </span>
+            </div>
+            <button
+              (click)="startExam(exam.id)"
+              class="w-full bg-[#155DFC] text-white font-semibold py-2.5 rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Start Exam
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+
+    @if (totalPages() > 1) {
+      <div class="flex items-center justify-center gap-2 mt-6">
+        <button
+          (click)="goToPage(currentPage() - 1)"
+          [disabled]="currentPage() <= 1"
+          class="px-4 py-2 rounded-md bg-white border border-gray-200 text-sm font-medium text-[#001D3D] hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        >
+          Previous
+        </button>
+        <span class="text-sm text-gray-500">Page {{ currentPage() }} of {{ totalPages() }}</span>
+        <button
+          (click)="goToPage(currentPage() + 1)"
+          [disabled]="currentPage() >= totalPages()"
+          class="px-4 py-2 rounded-md bg-white border border-gray-200 text-sm font-medium text-[#001D3D] hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        >
+          Next
+        </button>
+      </div>
+    }
+  }
+</div>

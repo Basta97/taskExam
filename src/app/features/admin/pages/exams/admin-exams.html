@@ -1,0 +1,136 @@
+<div class="space-y-6">
+  <div class="flex items-center justify-between">
+    <h2 class="text-2xl font-bold text-[#001D3D] font-geist-mono">Manage Exams</h2>
+    <button (click)="openCreate()"
+      class="bg-[#155DFC] text-white font-bold py-2.5 px-6 rounded-md hover:bg-blue-700 transition-colors font-geist-mono text-sm">
+      + Add Exam
+    </button>
+  </div>
+
+  @if (loading && exams().length === 0) {
+    <div class="text-center py-12 text-gray-400 font-geist-mono">Loading exams...</div>
+  } @else if (exams().length === 0) {
+    <div class="text-center py-12 text-gray-400 font-geist-mono">No exams found.</div>
+  } @else {
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <table class="w-full">
+        <thead class="bg-gray-50 border-b border-gray-100">
+          <tr>
+            <th class="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase font-geist-mono">Title</th>
+            <th class="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase font-geist-mono">Diploma</th>
+            <th class="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase font-geist-mono">Duration</th>
+            <th class="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase font-geist-mono">Questions</th>
+            <th class="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase font-geist-mono">Immutable</th>
+            <th class="text-right px-6 py-4 text-xs font-semibold text-gray-500 uppercase font-geist-mono">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-50">
+          @for (e of exams(); track e.id) {
+            <tr class="hover:bg-gray-50/50 transition-colors">
+              <td class="px-6 py-4">
+                <div class="flex items-center gap-3">
+                  @if (e.image) {
+                    <img [src]="e.image" [alt]="e.title" class="w-10 h-10 rounded-md object-cover" />
+                  }
+                  <span class="text-sm font-semibold text-[#001D3D] font-geist-mono">{{ e.title }}</span>
+                </div>
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-600 font-geist-mono">{{ e.diploma.title || '—' }}</td>
+              <td class="px-6 py-4 text-sm text-gray-600 font-geist-mono">{{ e.duration }} min</td>
+              <td class="px-6 py-4 text-sm text-gray-600 font-geist-mono">{{ e.questionsCount }}</td>
+              <td class="px-6 py-4">
+                <button (click)="toggleImmutable(e)"
+                  class="px-3 py-1 rounded-full text-xs font-semibold font-geist-mono"
+                  [ngClass]="e.immutable ? 'bg-amber-100 text-amber-700' : 'bg-gray-100 text-gray-600'">
+                  {{ e.immutable ? 'Locked' : 'Editable' }}
+                </button>
+              </td>
+              <td class="px-6 py-4 text-right space-x-2">
+                <button (click)="goToQuestions(e.id)"
+                  class="text-purple-600 hover:text-purple-800 text-sm font-geist-mono font-semibold">Questions</button>
+                <button (click)="openEdit(e)"
+                  class="text-blue-600 hover:text-blue-800 text-sm font-geist-mono font-semibold">Edit</button>
+                @if (deletingId === e.id) {
+                  <span class="inline-flex items-center gap-1 text-sm font-geist-mono">
+                    <span class="text-red-500">Confirm?</span>
+                    <button (click)="onDelete()" class="text-red-600 font-bold">Yes</button>
+                    <button (click)="cancelDelete()" class="text-gray-500">No</button>
+                  </span>
+                } @else {
+                  <button (click)="confirmDelete(e.id)"
+                    class="text-red-500 hover:text-red-700 text-sm font-geist-mono font-semibold">Delete</button>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    @if (totalPages > 1) {
+      <div class="flex justify-center gap-2">
+        @for (p of [].constructor(totalPages); track $index) {
+          <button (click)="loadExams($index + 1)"
+            class="w-9 h-9 rounded-md text-sm font-geist-mono font-semibold"
+            [ngClass]="currentPage === $index + 1 ? 'bg-[#155DFC] text-white' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'">
+            {{ $index + 1 }}
+          </button>
+        }
+      </div>
+    }
+  }
+
+  @if (showModal) {
+    <div class="fixed inset-0 bg-black/40 flex items-center justify-center z-50" (click)="closeModal()">
+      <div class="bg-white rounded-xl p-8 w-full max-w-lg shadow-2xl" (click)="$event.stopPropagation()">
+        <h3 class="text-lg font-bold text-[#001D3D] font-geist-mono mb-6">
+          {{ editingId ? 'Edit Exam' : 'Create Exam' }}
+        </h3>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+          <div class="space-y-2">
+            <label class="block text-sm font-semibold text-[#001D3D] font-geist-mono">Title</label>
+            <input formControlName="title" type="text" placeholder="Exam title"
+              class="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-geist-mono" />
+          </div>
+          <div class="space-y-2">
+            <label class="block text-sm font-semibold text-[#001D3D] font-geist-mono">Description</label>
+            <textarea formControlName="description" rows="3" placeholder="Exam description"
+              class="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-geist-mono resize-none"></textarea>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label class="block text-sm font-semibold text-[#001D3D] font-geist-mono">Duration (min)</label>
+              <input formControlName="duration" type="number" min="1" placeholder="60"
+                class="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-geist-mono" />
+            </div>
+            <div class="space-y-2">
+              <label class="block text-sm font-semibold text-[#001D3D] font-geist-mono">Diploma</label>
+              <select formControlName="diplomaId"
+                class="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-geist-mono bg-white">
+                <option value="">Select diploma</option>
+                @for (d of diplomas(); track d.id) {
+                  <option [value]="d.id">{{ d.title }}</option>
+                }
+              </select>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <label class="block text-sm font-semibold text-[#001D3D] font-geist-mono">Image URL</label>
+            <input formControlName="image" type="text" placeholder="https://..."
+              class="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-geist-mono" />
+          </div>
+          <div class="flex justify-end gap-3 pt-4">
+            <button type="button" (click)="closeModal()"
+              class="px-6 py-2.5 text-sm font-semibold text-gray-600 hover:text-gray-800 font-geist-mono">Cancel</button>
+            <button type="submit" [disabled]="loading"
+              class="bg-[#155DFC] text-white font-bold py-2.5 px-6 rounded-md hover:bg-blue-700 transition-colors font-geist-mono text-sm disabled:opacity-50">
+              {{ loading ? 'Saving...' : (editingId ? 'Update' : 'Create') }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  <app-toast [message]="toastMessage()" [type]="toastType()" [visible]="toastVisible()" (dismiss)="toastVisible.set(false)" />
+</div>

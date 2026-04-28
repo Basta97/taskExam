@@ -1,0 +1,53 @@
+<div class="space-y-6">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 bg-[#001D3D]/10 rounded-lg flex items-center justify-center">
+          <svg class="w-5 h-5 text-[#001D3D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+        </div>
+        <h3 class="font-bold text-[#001D3D] font-geist-mono">Total Users</h3>
+      </div>
+      <p class="text-3xl font-bold text-[#001D3D] font-geist-mono">{{ stats().totalUsers || '—' }}</p>
+    </div>
+    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+          </svg>
+        </div>
+        <h3 class="font-bold text-[#001D3D] font-geist-mono">Total Exams</h3>
+      </div>
+      <p class="text-3xl font-bold text-[#001D3D] font-geist-mono">{{ stats().totalExams || '—' }}</p>
+    </div>
+    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+          <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <h3 class="font-bold text-[#001D3D] font-geist-mono">Submissions</h3>
+      </div>
+      <p class="text-3xl font-bold text-[#001D3D] font-geist-mono">{{ stats().totalSubmissions || '—' }}</p>
+    </div>
+    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+          <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+          </svg>
+        </div>
+        <h3 class="font-bold text-[#001D3D] font-geist-mono">Avg Score</h3>
+      </div>
+      <p class="text-3xl font-bold text-[#001D3D] font-geist-mono">{{ stats().averageScore ? (stats().averageScore | number:'1.1-1') : '—' }}</p>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+    <h3 class="font-bold text-[#001D3D] text-lg mb-4 font-geist-mono">Diplomas</h3>
+    <p class="text-sm text-gray-500 font-geist-mono">{{ stats().totalDiplomas || 0 }} total diplomas in the system.</p>
+  </div>
+</div>
