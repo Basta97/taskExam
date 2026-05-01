@@ -6,6 +6,7 @@ import {
   API_ENDPOINTS,
   AuthService as CoreAuthService,
 } from 'auth-core';
+import { AUTH_API_URL } from '../auth.token';
 import { extractToken, mapLoginResponseToUser } from '../adapters/auth.adapter';
 import {
   LoginRequest,
@@ -21,6 +22,7 @@ import { User } from '../../../shared/models/user.model';
 export class AuthService {
   private readonly httpClient = inject(HttpClient);
   private readonly coreAuthService = inject(CoreAuthService);
+  private readonly apiBaseUrl = inject(AUTH_API_URL);
   private readonly platformId = inject(PLATFORM_ID);
 
   private readonly _currentUser = signal<User | null>(null);
@@ -86,6 +88,7 @@ export class AuthService {
       const storedToken = localStorage.getItem('token');
       if (storedToken) {
         this._token.set(storedToken);
+        this.hydrateCurrentUser();
       }
     }
   }
@@ -106,5 +109,19 @@ export class AuthService {
       throw { error: response };
     }
     return response;
+  }
+
+  private hydrateCurrentUser(): void {
+    this.httpClient.get<any>(`${this.apiBaseUrl}/users/profile`).subscribe({
+      next: (res: any) => {
+        const user = res?.payload?.user || res?.user || null;
+        if (user) {
+          this._currentUser.set(user);
+        }
+      },
+      error: () => {
+        this.logout();
+      },
+    });
   }
 }
