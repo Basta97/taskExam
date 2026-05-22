@@ -1,3 +1,6 @@
+/**
+ * Production Node server: static browser bundle + Angular SSR for all other paths.
+ */
 import {
   AngularNodeAppEngine,
   createNodeRequestHandler,

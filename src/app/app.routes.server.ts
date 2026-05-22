@@ -1,3 +1,6 @@
+/**
+ * Per-path SSR behavior: dynamic segments use server render; everything else can prerender.
+ */
 import { RenderMode, ServerRoute } from '@angular/ssr';
 
 export const serverRoutes: ServerRoute[] = [

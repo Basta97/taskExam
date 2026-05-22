@@ -1,3 +1,6 @@
+/**
+ * Standalone `/auth/verify-email` page: send code and confirm OTP outside the register wizard.
+ */
 import { Component, inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';

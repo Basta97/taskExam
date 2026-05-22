@@ -1,3 +1,6 @@
+/**
+ * Multi-step registration wizard: email → OTP (child step) → profile → password, then login redirect.
+ */
 import { CommonModule } from '@angular/common';
 import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';

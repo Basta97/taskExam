@@ -1,3 +1,6 @@
+/**
+ * Application shell: hosts the primary `<router-outlet>` for lazy-loaded feature areas.
+ */
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 

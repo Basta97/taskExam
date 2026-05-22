@@ -1,3 +1,6 @@
+/**
+ * Restricts admin UI to authenticated users whose role is `admin`.
+ */
 import { inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
 import { Router, CanActivateFn } from '@angular/router';

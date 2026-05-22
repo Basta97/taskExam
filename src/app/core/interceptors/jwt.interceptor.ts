@@ -1,3 +1,6 @@
+/**
+ * Injects `Authorization: Bearer <token>` on outgoing HTTP requests when a session exists.
+ */
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { AuthService } from '../../libs/auth/services/auth.service';

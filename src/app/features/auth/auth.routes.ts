@@ -1,3 +1,6 @@
+/**
+ * Auth feature routes under `/auth/*` (lazy-loaded from `app.routes`).
+ */
 import { Routes } from '@angular/router';
 
 export const AUTH_ROUTES: Routes = [

@@ -1,3 +1,6 @@
+/**
+ * SSR entry: same root `App` as `main.ts`, merged with `app.config.server` (server rendering).
+ */
 import { BootstrapContext, bootstrapApplication } from '@angular/platform-browser';
 import { App } from './app/app';
 import { config } from './app/app.config.server';

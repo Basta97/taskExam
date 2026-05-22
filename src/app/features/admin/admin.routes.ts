@@ -1,3 +1,6 @@
+/**
+ * Admin console under `/admin/*`; gated by `adminGuard` (auth + admin role).
+ */
 import { Routes } from '@angular/router';
 import { adminGuard } from '../../core/guards/admin.guard';
 

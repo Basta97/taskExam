@@ -44,7 +44,11 @@
         <app-register-email (submitEmail)="onEmailSubmit($event)"></app-register-email>
       }
       @if (isStep(2)) {
-        <app-verify-email [email]="userEmail" (submitOtp)="onOtpSubmit($event)" (editEmail)="onEditEmail()"></app-verify-email>
+        <app-register-verify-email-step
+          [email]="userEmail"
+          (submitOtp)="onOtpSubmit($event)"
+          (editEmail)="onEditEmail()"
+        ></app-register-verify-email-step>
       }
       @if (isStep(3)) {
         <app-register-info (submitInfo)="onInfoSubmit($event)"></app-register-info>

@@ -1,3 +1,7 @@
+/**
+ * Ensures only signed-in users reach dashboard routes. On the server, defers to the browser
+ * so `localStorage` is not read during SSR.
+ */
 import { inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
 import { Router, CanActivateFn } from '@angular/router';

@@ -1,9 +1,13 @@
+/**
+ * OTP entry step used only inside the multi-step register wizard (`RegisterComponent`).
+ * For the standalone email verification route, see `features/auth/pages/verify-email`.
+ */
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-verify-email',
+  selector: 'app-register-verify-email-step',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './verify-email.html',

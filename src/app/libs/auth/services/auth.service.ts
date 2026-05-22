@@ -1,3 +1,6 @@
+/**
+ * App-layer auth: wraps `auth-core` HTTP calls, keeps JWT + user in signals, syncs `localStorage`.
+ */
 import { inject, Injectable, PLATFORM_ID, signal, computed } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -25,6 +28,7 @@ export class AuthService {
   private readonly apiBaseUrl = inject(AUTH_API_URL);
   private readonly platformId = inject(PLATFORM_ID);
 
+  /** In-memory session; `token` is mirrored to `localStorage` on the browser after login. */
   private readonly _currentUser = signal<User | null>(null);
   private readonly _token = signal<string | null>(null);
 
@@ -101,6 +105,7 @@ export class AuthService {
     }
   }
 
+  /** Maps API `{ status: false }` / HTTP-style `code` fields into thrown errors for callers. */
   private assertSuccess(response: any): any {
     if (response?.status === false) {
       throw { error: response };
@@ -111,6 +116,7 @@ export class AuthService {
     return response;
   }
 
+  /** Fetches `/users/profile` so role and profile fields populate after a cold reload with token only. */
   private hydrateCurrentUser(): void {
     this.httpClient.get<any>(`${this.apiBaseUrl}/users/profile`).subscribe({
       next: (res: any) => {

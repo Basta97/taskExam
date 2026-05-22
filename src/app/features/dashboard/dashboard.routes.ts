@@ -1,3 +1,6 @@
+/**
+ * Student dashboard under `/dashboard/*`; all child routes require `authGuard`.
+ */
 import { Routes } from '@angular/router';
 import { authGuard } from '../../core/guards/auth.guard';
 

@@ -1,3 +1,6 @@
+/**
+ * Top-level routes: each area (`auth`, `dashboard`, `admin`) is lazy-loaded from `features/`.
+ */
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [

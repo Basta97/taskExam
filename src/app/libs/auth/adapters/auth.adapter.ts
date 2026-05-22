@@ -1,3 +1,6 @@
+/**
+ * Normalizes login API payloads: token location varies by endpoint version, so we probe common shapes.
+ */
 import { User } from '../../../shared/models/user.model';
 
 export function extractToken(data: any): string {
